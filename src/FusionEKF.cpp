@@ -17,7 +17,7 @@ FusionEKF::FusionEKF() {
 
   previous_timestamp_ = 0;
 
-  // initializing matrices
+  // initializing matrices  
   R_laser_ = MatrixXd(2, 2);
   R_radar_ = MatrixXd(3, 3);
   H_laser_ = MatrixXd(2, 4);
@@ -31,7 +31,7 @@ FusionEKF::FusionEKF() {
   R_radar_ << 0.09, 0, 0,
               0, 0.0009, 0,
               0, 0, 0.09;
-
+  cout << "Init finished!" << endl;
   /**
    * TODO: Finish initializing the FusionEKF.
    * TODO: Set the process and measurement noises
