@@ -21,9 +21,9 @@ Note that blue car indicates our target object whose position and velocity are t
 ### State vector 
 
 States to be estimated are the position and velocity of a target object in both x and y direction. Namely,
-$$
+\\(
 x = [p_x\quad p_y\quad v_x\quad v_y]^T
-$$
+)\\
 
 
 ### State prediction
