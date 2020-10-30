@@ -38,7 +38,7 @@ The above equation is `xdot =Fx + noise`. The model assumes veloicty is constant
 
 ---
 
-![prediction](https://latex.codecogs.com/gif.latex?x'&space;=&space;Fx\\ &space;P'&space;=&space;FPF^T&space;&plus;&space;Q)
+![prediction](https://latex.codecogs.com/gif.latex?x'&space;=&space;Fx\\;P'&space;=&space;FPF^T&space;&plus;&space;Q)
 
 ---
 
