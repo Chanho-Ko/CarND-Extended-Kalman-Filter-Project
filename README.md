@@ -22,6 +22,7 @@ Note that blue car indicates our target object whose position and velocity are t
 
 States to be estimated are the position and velocity of a target object in both x and y direction. Namely,
 
+![state_vector](https://latex.codecogs.com/gif.latex?x&space;=&space;[p_x\quad&space;p_y\quad&space;v_x\quad&space;v_y]^T)
 
 ### State prediction
 
@@ -37,10 +38,7 @@ The above equation is `xdot =Fx + noise`. The model assumes veloicty is constant
 
 ---
 
-$$
-x' = Fx\\
-P' = FPF^T + Q
-$$
+![prediction](https://latex.codecogs.com/gif.latex?x'&space;=&space;Fx\\&space;P'&space;=&space;FPF^T&space;&plus;&space;Q)
 
 ---
 
@@ -51,20 +49,17 @@ When updating measurements of sensors, the models of lidar and radar are differe
 ### Lidar
 
 Lidar sensor directely measures the point cloud of objects respect to the ego vehicle. This gives us a linear relationship, which is simply represented as follow:
-$$
-z=[p_x\quad p_y]^T=H_{lidar}x\\
-H_{lidar}=\begin{bmatrix}1&0&0&0\\
-0&1&0&0\end{bmatrix}
-$$
+
+![Lidar](https://latex.codecogs.com/gif.latex?z=[p_x\quad&space;p_y]^T=H_{lidar}x\\&space;H_{lidar}=\begin{bmatrix}1&0&0&0\\&space;0&1&0&0\end{bmatrix})
+
 
 
 ### Radar
 
 Radar sensor measures coordinates of range, bearing and range rate. This measurement has nonliear relationship with the state vector. This relationship can be represented as follow:
-$$
-h(x)=\begin{bmatrix}\rho\\\phi\\\dot{\rho}\end{bmatrix}
-= \begin{bmatrix}\sqrt{p_x^2+p_y^2}\\\text{atan2}(p_y,p_x)\\{p_xv_x+p_yv_y}\over{\sqrt{p_x^2+p_y^2}}\end{bmatrix}
-$$
+
+![radar_h](https://latex.codecogs.com/gif.latex?h(x)=&space;\begin{bmatrix}&space;\rho\\&space;\phi\\&space;\dot{\rho}&space;\end{bmatrix}=&space;\begin{bmatrix}&space;\sqrt{p_x^2&plus;p_y^2}\\&space;\text{atan2}(p_y,p_x)\\&space;{p_xv_x&plus;p_xv_y}\over{\sqrt{p_x^2&plus;p_y^2}}&space;\end{bmatrix})
+
 Hence for radar `y = z - Hx` becomes `y = z - h(x)`. Extented Kalman filter is a just extended version of Kalman filter for handling this kind of nonlinear relationship by calculating Jacobian matrix at every estimation step.
 
 
@@ -81,15 +76,7 @@ Hence for radar `y = z - Hx` becomes `y = z - h(x)`. Extented Kalman filter is a
 
 ---
 
-$$
-\text{if  (sensor == Lidar)}; H=H_{lidar}; \hat{z}=H_{lidar}x';\\
-\text{if  (sensor == Radar)}; H=H_{j}; \hat{z}=h(x');\\
-y = z - \hat{z}\\
-S = HP'H^T + R\\
-K = P'H^TS^{-1}
-x = x' + Ky
-P = (I-KH)P'
-$$
+![correction](./figs/correction.png)
 
 ---
 
