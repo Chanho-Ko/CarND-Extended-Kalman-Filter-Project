@@ -84,3 +84,10 @@ Hence for radar `y = z - Hx` becomes `y = z - h(x)`. Extented Kalman filter is a
 
 ## Pipeline
 
+### How the Files Relate to Each Other
+
+Here is a brief overview of what happens when you run the code files:
+
+1. `Main.cpp` reads in the data and sends a sensor measurement to `FusionEKF.cpp`
+2. `FusionEKF.cpp` takes the sensor data and initializes variables and updates variables. The Kalman filter equations are not in this file. `FusionEKF.cpp` has a variable called `ekf_`, which is an instance of a `KalmanFilter` class. The `ekf_` will hold the matrix and vector values. You will also use the `ekf_` instance to call the predict and update equations.
+3. The `KalmanFilter` class is defined in `kalman_filter.cpp` and `kalman_filter.h`. You will only need to modify 'kalman_filter.cpp', which contains functions for the prediction and update steps.
