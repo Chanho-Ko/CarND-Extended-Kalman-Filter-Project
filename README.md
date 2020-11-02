@@ -91,3 +91,41 @@ Here is a brief overview of what happens when you run the code files:
 1. `Main.cpp` reads in the data and sends a sensor measurement to `FusionEKF.cpp`
 2. `FusionEKF.cpp` takes the sensor data and initializes variables and updates variables. The Kalman filter equations are not in this file. `FusionEKF.cpp` has a variable called `ekf_`, which is an instance of a `KalmanFilter` class. The `ekf_` will hold the matrix and vector values. You will also use the `ekf_` instance to call the predict and update equations.
 3. The `KalmanFilter` class is defined in `kalman_filter.cpp` and `kalman_filter.h`. You will only need to modify 'kalman_filter.cpp', which contains functions for the prediction and update steps.
+
+
+
+### FusionEKF.cpp
+
+pseudo-code:
+
+```
+get Measurement{
+	if NOT initialized{
+		set initial state}
+		
+    set F, Q matrix with dt
+    DO Prediction
+    
+    if Measureent is RADAR{
+    	set corresponding H, R matrix
+    	DO Update EKF
+    }
+    if Measureent is LIDAR{
+    	set corresponding H, R matrix
+    	DO Update
+    }
+}
+```
+
+
+
+### kalman_filter.cpp
+
+This file contains  functions for prediction and measurement update. Detail of algorithm is followed by previous section of this description.
+
+The only tricky thing that needs to be considered is that  `atan2()` function gives us the range of from -pi to +pi, but the range of bearing angle measurement of RADAR is -2pi to 2pi. My solution of dealing with this is as follow:
+
+* Convert the range of bearing angle measurement using `atan2()`  
+
+* Add or subtract 2*pi to the measurement estimation term near the angle of pi where the sign is changed.
+
